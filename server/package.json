@@ -1,6 +1,6 @@
 {
-  "name": "express-basic-template",
-  "version": "1.0.0",
+  "name": "@sonex/server",
+  "version": "0.0.0",
   "description": "The most basic setup for express. Has the dependencies to run an express backend server.",
   "main": "index.js",
   "scripts": {

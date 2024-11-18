@@ -1,0 +1,24 @@
+{
+  "name": "sonex_audio_solutions",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "turbo": "^2.3.0"
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "test": "turbo test"
+  },
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "packageManager": "bun@1.1.34"
+}
