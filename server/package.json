@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "prisma:dev": "dotenv -e .env.local prisma generate",
+    "prisma:prod": "dotenv -e .env.production prisma generate"
   },
   "keywords": [
     "express",
@@ -17,14 +19,17 @@
   "author": "Isaiah Vickers",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^5.22.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "migrate-mongo": "^11.0.0",
     "mongoose": "^8.8.2",
     "morgan": "^1.10.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "prisma": "^5.22.0"
   },
   "devDependencies": {
+    "dotenv-cli": "^7.4.3",
     "nodemon": "^3.1.7"
   }
 }

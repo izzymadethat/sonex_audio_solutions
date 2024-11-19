@@ -1,15 +1,17 @@
 require("dotenv").config({
-  path: process.env.NODE_ENV === "production" ? ".env.production" : ".env.local"
+  path: process.env.NODE_ENV === "production" ? ".env.production" : ".env"
 });
 
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const path = require("path");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+const prisma = require("./config/prisma.config");
 const port = process.env.PORT;
+const { environment } = require("./config");
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = environment === "production";
 
 // Standard middleware
 app.use(express.json());
@@ -23,22 +25,17 @@ if (isProduction) {
   app.use(express.static(staticPath));
 }
 
+app.get("/api", (req, res) => {
+  res.json({ message: "Hello from Express!" });
+});
+
 // Catch-all route for frontend
 app.get(/^((?!\/api).)*$/, (req, res) => {
+  const indexPath = path.resolve(__dirname, "../web/index.html");
   console.log("Serving index.html");
   res.sendFile(indexPath);
 });
 
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log("Connected to MongoDB");
-    console.log("MONGO_URI", process.env.MONGODB_URI);
-
-    app.listen(port, () => {
-      console.log(`Listening for requests on port ${port}`);
-    });
-  })
-  .catch((err) => {
-    console.error("Error connecting to MongoDB:", err);
-  });
+app.listen(port, () => {
+  console.log(`Listening for requests on port ${port}`);
+});
