@@ -11,6 +11,7 @@ services:
       - ./server/.env.production
     environment:
       - NODE_ENV=production
+      - MONGODB_URI=${MONGODB_URI}
     depends_on:
       - mongo
     networks:
@@ -19,15 +20,24 @@ services:
   mongo:
     image: mongo:latest
     container_name: mongo
+    restart: always
+    env_file:
+      - ./server/.env
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     ports:
       - "27017:27017"
     volumes:
       - sonex_data:/data/db
     networks:
       - sonex-network
+    healthcheck:
+      test: ["CMD", "mongo", "--version"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 networks:
   sonex-network:
