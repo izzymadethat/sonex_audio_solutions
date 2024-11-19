@@ -19,6 +19,8 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "migrate-mongo": "^11.0.0",
+    "mongoose": "^8.8.2",
     "morgan": "^1.10.0",
     "path": "^0.12.7"
   },
