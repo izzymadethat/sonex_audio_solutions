@@ -13,17 +13,21 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 // Logging middleware
 app.use(morgan("dev"));
 
-// TODO: Test these routes then get rid of these routes and replace with your own
-app.use("/", (req, res) => {
-  if (isProduction) {
-    return res.sendFile(
-      path.resolve(__dirname, "../web", "dist", "index.html")
-    );
-  } else {
-    return res.sendFile(
-      path.resolve(__dirname, "../web", "dist", "index.html")
-    );
-  }
+// Serve static files in production
+// Serve static files in production
+if (isProduction) {
+  const staticPath = path.resolve(__dirname, "../web");
+  console.log("Serving static files from:", staticPath);
+  app.use(express.static(staticPath));
+}
+
+const indexPath = path.resolve(__dirname, "../web", "index.html");
+console.log("Index Path:", indexPath);
+
+// Catch-all route for frontend
+app.get(/^((?!\/api).)*$/, (req, res) => {
+  console.log("Serving index.html");
+  res.sendFile(indexPath);
 });
 
 const port = 4000;

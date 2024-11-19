@@ -1,0 +1,35 @@
+services:
+  # Frontend build and serve (Bun + node)
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+    networks:
+      - sonex-network
+  # Database (MongoDB)
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - "27017:27017"
+    volumes:
+      - sonex_data:/data/db
+    networks:
+      - sonex-network
+
+networks:
+  sonex-network:
+    driver: bridge
+volumes:
+  sonex_data:
+    driver: local
