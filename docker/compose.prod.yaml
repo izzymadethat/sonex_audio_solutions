@@ -2,13 +2,11 @@ services:
   # Frontend build and serve (Bun + node)
   web:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile
     container_name: web
     ports:
       - "8000:8000"
-    env_file:
-      - ./server/.env.production
     environment:
       - NODE_ENV=production
       - POSTGRES_DB=${POSTGRES_DB}
@@ -24,12 +22,11 @@ services:
     image: postgres
     container_name: postgres
     restart: always
-    env_file:
-      - ./server/.env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_DB={POSTGRES_DB}
+      - POSTGRES_HOST=postgres
     ports:
       - "5432:5432"
     volumes:
