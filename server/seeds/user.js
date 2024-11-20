@@ -21,4 +21,4 @@ const seedDemoUser = async () => {
     }
 }
 
-export default seedDemoUser
+module.exports = seedDemoUser
