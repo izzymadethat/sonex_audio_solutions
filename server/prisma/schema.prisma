@@ -23,7 +23,71 @@ model User {
   bio String? @db.VarChar(250)
   isVerified Boolean @default(false)
   avatar String?
-
+  projects Project[]
+  files File[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id Int @id @default(autoincrement())
+  title String
+  description String?
+  owner User @relation(fields: [userId], references: [id]) 
+  userId Int
+  status ProjectStatus @default(active)
+  paymentStatus ProjectPaymentStatus @default(unpaid)
+  projectAmount Decimal @default(0)
+  amountPaid Decimal @default(0)
+  files File[]
+  comments Comment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@unique([title, userId])
+}
+
+model File {
+  id Int @id @default(autoincrement())
+  name String
+  type String
+  project Project @relation(fields: [projectId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+  projectId Int
+  userId Int
+  path String
+  size BigInt
+  isDownloadable Boolean @default(false)
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  text String
+  email String
+  userAgent String
+  project Project @relation(fields: [projectId], references: [id])
+  projectId Int
+  timestamp String?
+  type CommentType
+  isCompleted Boolean @default(false)
+}
+
+enum ProjectStatus {
+  active
+  completed
+  archived
+} 
+
+enum ProjectPaymentStatus {
+  unpaid
+  free
+  paid
+  partial
+  failed
+  overpaid
+}
+
+enum CommentType {
+  revision
+  feedback
 }
