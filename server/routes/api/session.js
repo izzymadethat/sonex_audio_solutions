@@ -17,7 +17,7 @@ const validateLogin = [
 ];
 
 // Get currently authenticated user
-// GET /api/auth/session
+// GET /api/auth
 router.get("/", async (req, res) => {
   if (!req.session.user) return res.json({ user: null });
 
@@ -35,7 +35,7 @@ router.get("/", async (req, res) => {
 });
 
 // Login a user
-// POST /api/auth/session
+// POST /api/auth
 router.post("/", validateLogin, async (req, res, next) => {
   const { credential, password } = req.body;
   try {
@@ -85,7 +85,7 @@ router.post("/", validateLogin, async (req, res, next) => {
 });
 
 // Logout a user
-// DELETE /api/auth/session
+// DELETE /api/auth
 router.delete("/", (req, res) => {
   // Destroy the user's auth session (removes "sonex_session_id" from cookies
   req.session.destroy();

@@ -1,28 +1,36 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import userReducer from "./slices/userSlice";
+// import projectsReducer from "@/features/projects/projectsSlice";
+// import commentsReducer from "@/features/comments/commentsSlice";
+// import filesReducer from "@/features/files/filesSlice";
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
-  whitelist: ["user"]
+  whitelist: ['user']
 };
 
-const rootReducer = {};
+// Create root reducer
+const rootReducer = {
+  session: userReducer,
+  // projects: projectsReducer,
+  // comments: commentsReducer,
+  // files: filesReducer,
+};
 
-const persistedReducer = persistReducer(
-  persistConfig,
-  combineReducers(rootReducer)
-);
+// Create persisted reducer
+const persistedReducer = persistReducer(persistConfig, combineReducers(rootReducer));
 
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ["persist/REHYDRATE", "persist/REHYDRATE"]
-      }
-    })
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);
