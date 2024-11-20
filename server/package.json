@@ -7,7 +7,9 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "prisma:dev": "dotenv -e .env.local prisma generate",
-    "prisma:prod": "dotenv -e .env.production prisma generate"
+    "prisma:prod": "dotenv -e .env.production prisma generate",
+    "migrate": "npx prisma migrate dev",
+    "db:reset": "npx prisma migrate reset"
   },
   "keywords": [
     "express",
