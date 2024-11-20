@@ -2,7 +2,7 @@ import Button from "../ui/Button";
 import Chip from "../ui/Chip";
 import Features from "./components/Features/Features";
 import Footer from "./components/Footer";
-import Header from "./components/Header";
+import Header, { RegisterPopup } from "./components/Header";
 import MarketedUsers from "./components/MarketedUsers";
 
 const LandingPage = () => {
@@ -26,10 +26,8 @@ const LandingPage = () => {
             store, share, and manage audio projects with clients, while handling
             payments and revisions all in one place.
           </p>
+          <RegisterPopup text="Get Started!" />
 
-          <Button className="text-lg bg-primary text-foreground hover:bg-primary/90">
-            Get Started!
-          </Button>
         </section>
       </div>
 
