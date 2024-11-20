@@ -11,7 +11,11 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",
-    "test": "turbo test"
+    "test": "turbo test",
+    "clean": "turbo clean",
+    "format": "turbo format",
+    "docker:build": "docker compose -f docker/compose.prod.yaml build",
+    "docker:test": "docker compose -f docker/compose.prod.yaml up --abort-on-container-exit"
   },
   "workspaces": [
     "server",

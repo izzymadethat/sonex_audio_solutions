@@ -1,39 +1,42 @@
 # Stage 1: Build the application with Bun
 FROM oven/bun AS builder
-WORKDIR /app
+WORKDIR /sonex
 
-# Set NODE_ENV to production
-ENV NODE_ENV=production
+# Define build arguments
+ARG DATABASE_URL
+ARG POSTGRES_USER
+ARG POSTGRES_PASSWORD
+ARG POSTGRES_DB
+
+# Set environment variables from build arguments
+ENV DATABASE_URL=${DATABASE_URL}
+ENV POSTGRES_USER=${POSTGRES_USER}
+ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+ENV POSTGRES_DB=${POSTGRES_DB}
 
 # Copy package files for both server and web
 COPY package.json bun.lockb ./
-COPY server/package.json server/package.json
-COPY web/package.json web/package.json
+COPY server/package.json server/
+COPY web/package.json web/
 
 # Install dependencies using Bun
 RUN bun install --cwd server
 RUN bun install --cwd web
 
 # Copy server and web files
-COPY server ./server
-COPY web ./web
+COPY server server/
+COPY web web/
 
 # Build the frontend
 RUN bun run --cwd web build
 
-# # Generate Prisma client
-# RUN bun run --cwd server prisma generate --schema=server/prisma/schema.prisma 
-
 # Stage 2: Production Image
 FROM node:18-bookworm-slim AS runner
-WORKDIR /app
-
-# Set NODE_ENV to production
-ENV NODE_ENV=production
+WORKDIR /sonex
 
 # Copy the application code and Prisma client
-COPY --from=builder /app/server ./server
-COPY --from=builder /app/web/dist ./web
+COPY --from=builder /sonex/server ./server
+COPY --from=builder /sonex/web/dist ./web
 
 # Install only production dependencies
 COPY package*json ./
