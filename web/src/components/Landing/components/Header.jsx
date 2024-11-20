@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header className="flex justify-between p-4">
       <div className="w-full">
-        <p className="text-2xl font-bold text-inherit">Sonex</p>
+        <p className="text-2xl font-bold text-inherit text-primary">Sonex</p>
       </div>
       <nav className="flex items-center gap-4">
         <Button>Login</Button>

@@ -1,9 +1,12 @@
 import Button from "../ui/Button";
+import Chip from "../ui/Chip";
+import Features from "./components/Features/Features";
 import Header from "./components/Header";
+import MarketedUsers from "./components/MarketedUsers";
 
 const LandingPage = () => {
   return (
-    <div>
+    <main className="bg-[#010101] text-neutral-200">
       {/* Header */}
       <Header />
       {/* Hero */}
@@ -26,7 +29,25 @@ const LandingPage = () => {
           <Button className="text-lg">Get Started!</Button>
         </section>
       </div>
-    </div>
+
+      {/* Features */}
+      <div>
+        <Chip text="Features" className="flex items-center justify-center" />
+        <Features />
+      </div>
+
+      {/* Ways to use sonex */}
+      <section className="h-screen my-24">
+        <Chip
+          text="How can I use Sonex?"
+          className="flex items-center justify-center"
+        />
+        <div className="flex flex-col items-center justify-center px-48 my-8 space-y-3">
+          <p className="italic">Use Sonex as:</p>
+          <MarketedUsers />
+        </div>
+      </section>
+    </main>
   );
 };
 export default LandingPage;
