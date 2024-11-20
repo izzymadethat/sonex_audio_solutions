@@ -1,12 +1,13 @@
 import Button from "../ui/Button";
 import Chip from "../ui/Chip";
 import Features from "./components/Features/Features";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import MarketedUsers from "./components/MarketedUsers";
 
 const LandingPage = () => {
   return (
-    <main className="bg-[#010101] text-neutral-200">
+    <main className="bg-[#010101] text-neutral-200 min-h-screen">
       {/* Header */}
       <Header />
       {/* Hero */}
@@ -26,7 +27,9 @@ const LandingPage = () => {
             payments and revisions all in one place.
           </p>
 
-          <Button className="text-lg">Get Started!</Button>
+          <Button className="text-lg bg-primary text-foreground hover:bg-primary/90">
+            Get Started!
+          </Button>
         </section>
       </div>
 
@@ -47,6 +50,8 @@ const LandingPage = () => {
           <MarketedUsers />
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 };
